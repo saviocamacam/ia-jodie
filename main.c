@@ -6,6 +6,7 @@
 void main()
 {
   int menuOption;
+  int vetorVerifica[ordem * ordem] = {-1, -1, -1, -1, -1, -1, -1, -1, -1};
   int epuzzleMascara[ordem][ordem] = {1,2,3,4,5,6,7,8,0};
   int epuzzle[ordem][ordem] = {-1, -1, -1, -1, -1, -1, -1, -1, -1};
   int * distancias;
@@ -24,17 +25,18 @@ void main()
 
     if(menuOption == 1)
     {
-      int i, j, valor, cont=1;
+      int i, j, valor, cont=0;
       for(i = 0 ; i<ordem ; i++)
       {
         for(j = 0; j<ordem ; j++)
         {
           printf("INFORME O VALOR %d DE 9\n", ++cont);
           scanf("%d", &valor);
-          if(!valorJaInserido(epuzzle, valor) && valor >= 0 && valor < (ordem * ordem)) {
+          if(!valorJaInserido(vetorVerifica, valor) && valor >= 0 && valor < (ordem * ordem)) {
             epuzzle[i][j] = valor;
           }
           else {
+            cont--;
             i--;
             j--;
             printf("Valor ja inserido ou invalido. Tente outro valor\n");

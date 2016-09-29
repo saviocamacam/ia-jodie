@@ -14,18 +14,12 @@ void printPuzzle(int epuzzle[ordem][ordem])
   }
 }
 
-int valorJaInserido(int epuzzle[ordem][ordem], int valor)
+int valorJaInserido(int * vetorVerifica, int valor)
 {
-  int i, j, flag = 0;
-  for(i=0; i<ordem ; i++)
-  {
-    for(j=0; j<ordem ; j++)
-    {
-      if(epuzzle[i][j] == valor)
-        flag = 1;
-    }
-  }
-  return flag;
+  printf("vetor: %d\n", vetorVerifica[valor]);
+  if(vetorVerifica[valor] == valor)
+    return 1;
+  else return 0;
 }
 
 int * buscarDistancias(int epuzzle[ordem][ordem], int mascaraEpuzzle[ordem][ordem])
