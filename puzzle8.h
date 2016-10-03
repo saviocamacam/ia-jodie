@@ -5,10 +5,27 @@
 #include <string.h>
 #define ordem 3
 
-//Funcao que imprime o 8puzzle
-void printPuzzle(int epuzzle[ordem][ordem]);
+//No de puzzle
+typedef struct node {
+  int ** epuzzle;
+  struct node * top;
+  struct node * bottom;
+  struct node * right;
+  struct node * left;
+  int g;
+  int h;
+} Node;
+
+//Inicializa a arvore de busca
+Node * inicializaArvore();
+//Inicializa o puzzle
+int ** inicializaEpuzzle(int flag);
+//Imprime o 8puzzle
+void printPuzzle(int ** epuzzle);
 //Verifica se um valor ja foi inserido
 int valorJaInserido(int * vetorVerifica, int valor);
-
-int * buscarDistancias(int epuzzle[ordem][ordem], int mascaraEpuzzle[ordem][ordem]);
+//Busca todos os valores de heurísticas
+int * buscarDistancias(int ** epuzzle, int ** mascaraEpuzzle);
+//Executa a busca A*
+int astarSearch(Node * raiz, int ** epuzzleMascara);
 #endif

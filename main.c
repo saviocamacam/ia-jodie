@@ -7,16 +7,18 @@ void main()
 {
   int menuOption;
   int vetorVerifica[ordem * ordem] = {-1, -1, -1, -1, -1, -1, -1, -1, -1};
-  int epuzzleMascara[ordem][ordem] = {1,2,3,4,5,6,7,8,0};
-  int epuzzle[ordem][ordem] = {-1, -1, -1, -1, -1, -1, -1, -1, -1};
+  int ** epuzzleMascara = inicializaEpuzzle(1);
+  int ** epuzzle = inicializaEpuzzle(0);
   int * distancias;
+  int caminhoOtimo;
+  Node * raiz;
 
   do
   {
     printf("(1) INFORMAR VALORES\n");
     printf("(2) IMPRIMIR PUZZLE\n");
     printf("(3) BUSCAR DISTANCIAS\n");
-    printf("REALIZAR BUSCA A*\n");
+    printf("(4) REALIZAR BUSCA A*\n");
     printf("REALIZAR BUSCA EM PROFUNDIDADE\n");
     printf("REALIZAR BUSCA GULOSA\n");
 
@@ -34,17 +36,16 @@ void main()
           scanf("%d", &valor);
           if(!valorJaInserido(vetorVerifica, valor) && valor >= 0 && valor < (ordem * ordem)) {
             epuzzle[i][j] = valor;
+            printPuzzle(epuzzle);
           }
           else {
             cont--;
-            i--;
             j--;
             printf("Valor ja inserido ou invalido. Tente outro valor\n");
             printPuzzle(epuzzle);
           }
         }
       }
-      printPuzzle(epuzzle);
     }
 
     if(menuOption == 2) {
@@ -53,13 +54,14 @@ void main()
 
     if(menuOption == 3) {
       distancias = buscarDistancias(epuzzle, epuzzleMascara);
-      printf("> MANHATTAN: %d\n", distancias[0]);
-      printf("> EUCLIDIANA: %d\n", distancias[1]);
-      printf("> FORA DO LUGAR: %d\n", distancias[2]);
+      printf("> FORA DO LUGAR: %d\n", distancias[0]);
+      printf("> MANHATTAN: %d\n", distancias[1]);
     }
 
     if(menuOption == 4) {
-
+      raiz = inicializaArvore();
+      raiz->epuzzle = epuzzle;
+      caminhoOtimo = astarSearch(raiz, epuzzleMascara);
     }
 
   } while (menuOption != 9);
